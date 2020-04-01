@@ -1,15 +1,6 @@
 
 public class Search_in_a_bitonic_array {
-	
-	//solution inspired from greeksforgreeks
-	public Search_in_a_bitonic_array(int[] a) { 
-		
-	   //System.out.print( findMax(a,0, a.length-1)); 
-		
-	}
-	
-	//first we find the highest numbers through binarySearch
-	
+	//first we find the highest numbers through binarySearch	
 	public int findMaxIndex(int[] a , int low , int high) { 
 	   if (high == low) 
 	       return low;  
@@ -32,39 +23,40 @@ public class Search_in_a_bitonic_array {
 	  
  	}
 	
-	public int findleft (int[] a , int n, int mid) {  //searching on the left side
-  	    if ( mid <a.length ) {
- 	    	   if( n>a[mid]) return -1; 
- 	           if(a[mid]==n) return mid ;
-                return findleft(a, n, mid+1); 
-                
+	public int findRight (int[] a , int n, int low , int high ) {  //searching on the left side
+		 while(low<=high) {
+          int mid=low+(high-low)/2 ;
+           if(n<a[mid])  high= mid-1; 
+           else if(n>a[mid])  low=mid+1;
+           else return mid;
+
  	    }    
-
-		return -1;
-
-	}
-	
-	public int findright (int[] a , int n, int mid) {  //searching on the left side
-	    if (mid >=0  ) {
- 	    	   if( n>a[mid]) return -1; 
- 	           if(a[mid]==n) return mid ;
-               return     findright(a, n, mid-1); 
-  	    }    
 		return -1;
 	}
+	public int findLeft (int[] a , int n, int low , int high ) {  //searching on the left side
+		 while(low<=high) {
+         int mid=low+(high-low)/2 ;
+          if(n>a[mid])  high= mid-1; 
+          else if(n<a[mid])  low=mid+1;
+          else return mid;
+
+	    }    
+		return -1;
+	}
+
 
 	public int findNumber(int a[],int n) {  // applying the search on both sides 
-		int mid =findMaxIndex(a , 0 , a.length-1);
-		if(findleft(a, n, mid )!=-1)  return findleft(a, n, mid ); 
+		 int mid =findMaxIndex(a , 0 , a.length-1);
+ 		 if(findRight(a, n, 0 ,mid)!=-1)  return findRight(a, n,  0 ,mid); 
 		
-		else if(findright(a, n, mid )!=-1) return findright(a, n, mid );
+   	     else if(findLeft(a, n, mid, a.length )!=-1) return findLeft(a, n, mid, a.length); 
 		else return -1; 
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] a=  {3, 50, 10, 9, 7, 6};
- 		 Search_in_a_bitonic_array s = new  Search_in_a_bitonic_array(a) ;
-		System.out.print( s.findNumber(a,3));
+		int[] a=  {1,2,3, 50, 10, 9, 7, 6};
+ 		 Search_in_a_bitonic_array s = new  Search_in_a_bitonic_array() ;
+     	System.out.print( s.findNumber(a,6));
 	}
 	
 	
